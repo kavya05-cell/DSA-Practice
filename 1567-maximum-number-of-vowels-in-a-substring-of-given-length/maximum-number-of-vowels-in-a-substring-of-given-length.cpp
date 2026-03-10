@@ -18,7 +18,8 @@ bool isVowel(char c){
                count--;
             if(isVowel(s[i]))
                count++;
-            maxx=max(maxx,count);
+            if(count>maxx)
+              maxx=count;
         }
         return maxx;
     }
