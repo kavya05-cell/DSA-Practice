@@ -3,19 +3,17 @@ public:
     int findMiddleIndex(vector<int>& nums) {
         int n=nums.size();
         vector<int>prefix(n,0);
-        vector<int>suffix(n,0);
-        prefix[0]=0;
-        for(int i=1;i<n;i++){
-            prefix[i]=prefix[i-1]+nums[i-1];
-        }
-        suffix[n-1]=0;
-        for(int i=n-2;i>=0;i--){
-            suffix[i]=suffix[i+1]+nums[i+1];
+        int l=0,r=0;
+        int total=0;
+        for(int i=0;i<n;i++){
+            total+=nums[i];
         }
         for(int i=0;i<n;i++){
-            if(prefix[i]==suffix[i]){
-                return i;
-            }
+            r=total-l-nums[i];
+            if(l==r)
+               return i;
+            else 
+               l+=nums[i];
         }
         return -1;
     }
