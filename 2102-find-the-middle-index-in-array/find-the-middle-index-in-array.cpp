@@ -1,17 +1,21 @@
 class Solution {
 public:
     int findMiddleIndex(vector<int>& nums) {
-        int n=nums
-        .size();
+        int n=nums.size();
+        vector<int>prefix(n,0);
+        vector<int>suffix(n,0);
+        prefix[0]=0;
+        for(int i=1;i<n;i++){
+            prefix[i]=prefix[i-1]+nums[i-1];
+        }
+        suffix[n-1]=0;
+        for(int i=n-2;i>=0;i--){
+            suffix[i]=suffix[i+1]+nums[i+1];
+        }
         for(int i=0;i<n;i++){
-            int l=0;
-            int r=0;
-            for(int j=0;j<i;j++)
-                l+=nums[j];
-            for(int j=i+1;j<n;j++)
-                r+=nums[j];
-            if(l==r)
-               return i;
+            if(prefix[i]==suffix[i]){
+                return i;
+            }
         }
         return -1;
     }
