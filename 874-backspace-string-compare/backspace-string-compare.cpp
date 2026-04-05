@@ -9,7 +9,6 @@ public:
 
     while(i >= 0 || j >= 0) {
 
-        // process s
         while(i >= 0) {
             if(s[i] == '#') {
                 skipS++;
@@ -20,7 +19,6 @@ public:
             } else break;
         }
 
-        // process t
         while(j >= 0) {
             if(t[j] == '#') {
                 skipT++;
@@ -30,11 +28,8 @@ public:
                 j--;
             } else break;
         }
-
-        // compare characters
         if(i >= 0 && j >= 0 && s[i] != t[j]) return false;
 
-        // one string ended before other
         if((i >= 0) != (j >= 0)) return false;
 
         i--;
