@@ -11,6 +11,6 @@ public:
                 return i.first;
             }
         }
-        return nums[n-1];
+        return 0;
     }
 };
