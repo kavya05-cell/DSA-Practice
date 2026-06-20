@@ -1,6 +1,10 @@
 class Solution {
 public:
     int findMin(vector<int>& nums) {
-        return *min_element(nums.begin(),nums.end());
+        int minn=INT_MAX;
+        for(int i:nums){
+            if(i<minn) minn=i;
+        }
+        return minn;
     }
 };
