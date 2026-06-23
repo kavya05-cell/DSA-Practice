@@ -12,10 +12,21 @@
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
-        if(root==NULL)
-        return 0;
-        int left=maxDepth(root->left);
-        int right=maxDepth(root->right);
-        return 1 + max(left, right);
+        if(!root) return 0;
+        stack<pair<TreeNode*,int>>st;
+        st.push({root,1});
+        int res=0;
+        while(!st.empty()){
+            pair<TreeNode*,int>cur=st.top();
+            st.pop();
+            TreeNode*node=cur.first;
+            int depth=cur.second;
+            if(node!=nullptr){
+                res=max(res,depth);
+                st.push({node->left,depth+1});
+                st.push({node->right,depth+1});
+            }
+        }
+        return res;
     }
 };
