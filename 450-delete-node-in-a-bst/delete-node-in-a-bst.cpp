@@ -22,8 +22,10 @@ public:
             if(!root->right) return root->left;
             TreeNode* cur=root->right;
             while(cur->left) cur=cur->left;
-            root->val=cur->val;
-            root->right=deleteNode(root->right,root->val);
+            cur->left=root->left;
+            TreeNode* res=root->right;
+            delete root;
+            return res;
         }      
         return root;
     }
