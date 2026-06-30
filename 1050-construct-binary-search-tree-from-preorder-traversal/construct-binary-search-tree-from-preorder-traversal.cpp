@@ -11,20 +11,16 @@
  */
 class Solution {
 public:
-TreeNode* insertIntoBST(TreeNode*root, int val){
-    if(!root) return new TreeNode(val);
-    if(val<root->val)
-       root->left=insertIntoBST(root->left,val);
-    else 
-       root->right=insertIntoBST(root->right,val);
-    return root;
-}
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        if(preorder.empty()) return nullptr;
-        TreeNode* root=new TreeNode(preorder[0]);
-        for(int i=1;i<preorder.size();i++){
-            insertIntoBST(root, preorder[i]);
-        }
+       int idx=0;
+       return buildTree(preorder,idx,INT_MAX);
+    }
+    private:
+    TreeNode* buildTree(vector<int>&preorder,int& idx, int maxx){
+        if(idx>=preorder.size() || preorder[idx]>maxx) return nullptr;
+        TreeNode* root= new TreeNode(preorder[idx++]);
+        root->left=buildTree(preorder,idx,root->val);
+        root->right=buildTree(preorder,idx,maxx);
         return root;
     }
 };
