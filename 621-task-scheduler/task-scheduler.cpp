@@ -5,25 +5,12 @@ public:
         for(char task:tasks){
             count[task-'A']++;
         }
-        priority_queue<int>maxheap;
-        for(int cnt:count){
-            if(cnt>0) maxheap.push(cnt);
+        sort(count.begin(),count.end());
+        int maxx=count[25];
+        int idle=(maxx-1)*n;
+        for(int i=24;i>=0;i--){
+            idle-=min(maxx-1,count[i]);
         }
-        int time=0;
-        queue<pair<int,int>>q;
-        while(!maxheap.empty() || !q.empty()){
-            time++;
-            if(maxheap.empty()) time=q.front().second;
-            else{
-                int cnt=maxheap.top()-1;
-                maxheap.pop();
-                if(cnt>0) q.push({cnt,time+n});
-            }
-            if(!q.empty() && q.front().second==time){
-                maxheap.push(q.front().first);
-                q.pop();
-            }
-        }
-        return time;
+        return max(0,idle)+tasks.size();
     }
 };
