@@ -2,19 +2,20 @@ class Solution {
 public:
     vector<vector<int>>res;
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<int>cur;
-        backtrack(candidates,target,cur,0);
+        sort(candidates.begin(),candidates.end());
+        backtrack(0,{},0,candidates,target);
         return res;
     }
-    void backtrack(vector<int>&nums,int target, vector<int>&cur, int i){
-        if(target==0){
+    void backtrack(int i,vector<int>cur,int total, vector<int>&nums,int target){
+        if(total==target){
             res.push_back(cur);
             return;
         }
-        if(target<0 || i>=nums.size()) return;
-        cur.push_back(nums[i]);
-        backtrack(nums,target-nums[i],cur,i);
-        cur.pop_back();
-        backtrack(nums,target,cur,i+1);
+        for(int j=i;j<nums.size();j++){
+            if(total+nums[j]>target) return;
+            cur.push_back(nums[j]);
+            backtrack(j,cur,total+nums[j],nums,target);
+            cur.pop_back();
+        }
     }
 };
