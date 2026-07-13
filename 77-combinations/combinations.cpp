@@ -2,19 +2,12 @@ class Solution {
 public:
     vector<vector<int>> combine(int n, int k) {
         vector<vector<int>>res;
-        vector<int>comb(k,0);
-        int i=0;
-        while(i>=0){
-            comb[i]++;
-            if(comb[i]>n){
-                i--;
-                continue;
+        for(int i=0;i< (1<<n); ++i){
+            vector<int>comb;
+            for(int j=0;j<n;++j){
+                if(i & (1<<j)) comb.push_back(j+1);
             }
-            if(i==k-1) res.push_back(comb);
-            else{
-                i++;
-                comb[i]=comb[i-1];
-            }
+            if(comb.size()==k) res.push_back(comb);
         }
         return res;
     }
