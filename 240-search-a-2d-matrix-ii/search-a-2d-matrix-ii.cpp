@@ -5,8 +5,6 @@ public:
         
         int rows = matrix.size();
         int cols = matrix[0].size();
-        
-        // Start at top-right corner
         int r = 0;
         int c = cols - 1;
         
