@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
-        vector<int> indegree(numCourses, 0);
+       vector<int> indegree(numCourses, 0);
         vector<vector<int>> adj(numCourses);
 
         for (auto& pre : prerequisites) {
