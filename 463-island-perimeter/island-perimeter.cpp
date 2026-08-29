@@ -1,34 +1,34 @@
 class Solution {
-private:
-    vector<vector<int>> grid;
-    vector<vector<bool>> visited;
-    int rows, cols;
-
-    int dfs(int i, int j) {
-        if (i < 0 || j < 0 || i >= rows ||
-            j >= cols || grid[i][j] == 0) {
-            return 1;
-        }
-        if (visited[i][j]) {
-            return 0;
-        }
-
-        visited[i][j] = true;
-        return dfs(i, j + 1) + dfs(i + 1, j) +
-               dfs(i, j - 1) + dfs(i - 1, j);
-    }
-
 public:
     int islandPerimeter(vector<vector<int>>& grid) {
-        this->grid = grid;
-        rows = grid.size();
-        cols = grid[0].size();
-        visited = vector<vector<bool>>(rows, vector<bool>(cols, false));
+        int rows = grid.size(), cols = grid[0].size();
+        vector<vector<bool>> visited(rows, vector<bool>(cols, false));
+        int directions[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < cols; ++j) {
                 if (grid[i][j] == 1) {
-                    return dfs(i, j);
+                    queue<pair<int, int>> q;
+                    q.push({i, j});
+                    visited[i][j] = true;
+                    int perimeter = 0;
+
+                    while (!q.empty()) {
+                        auto [x, y] = q.front();
+                        q.pop();
+
+                        for (auto& dir : directions) {
+                            int nx = x + dir[0], ny = y + dir[1];
+                            if (nx < 0 || ny < 0 || nx >= rows ||
+                                ny >= cols || grid[nx][ny] == 0) {
+                                perimeter++;
+                            } else if (!visited[nx][ny]) {
+                                visited[nx][ny] = true;
+                                q.push({nx, ny});
+                            }
+                        }
+                    }
+                    return perimeter;
                 }
             }
         }
