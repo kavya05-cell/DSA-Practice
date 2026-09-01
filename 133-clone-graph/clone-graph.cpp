@@ -21,7 +21,7 @@ public:
 
 class Solution {
 public:
-    Node* cloneGraph(Node* node) {
+     Node* cloneGraph(Node* node) {
         map<Node*, Node*> oldToNew;
         return dfs(node, oldToNew);
     }
