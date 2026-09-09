@@ -1,21 +1,10 @@
 class Solution {
 public:
     bool canJump(vector<int>& nums) {
-        unordered_map<int,bool>memo;
-        return dfs(nums,0,memo);
-    }
-private:
-    bool dfs(vector<int>& nums, int i, unordered_map<int,bool>& memo){
-        if(memo.count(i)) return memo[i];
-        if(i==nums.size()-1) return true;
-        int end=min((int)nums.size(),i+nums[i]+1);
-        for(int j=i+1;j<end;j++){
-            if(dfs(nums,j,memo)){
-                memo[i]=true;
-                return true;
-            }
+        int n=nums.size()-1;
+        for(int i=nums.size()-2;i>=0;i--){
+            if(i+nums[i]>=n) n=i;
         }
-        memo[i]=false;
-        return false;
+        return n==0;
     }
 };
