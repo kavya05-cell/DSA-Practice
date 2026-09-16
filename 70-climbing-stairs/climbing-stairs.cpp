@@ -1,15 +1,13 @@
 class Solution {
 public:
+    vector<int>cache;
     int climbStairs(int n) {
-        if (n<=2) return n;
-        int last=1;
-        int sdlast=2;
-        for(int i=3;i<=n;i++){
-            int curr=last+sdlast;
-            last=sdlast;
-            sdlast=curr;
-        }
-        return sdlast;
-
+        cache.resize(n,-1);
+        return dfs(n,0);
+    }
+    int dfs(int n, int i){
+        if(i>=n) return i==n;
+        if(cache[i]!=-1) return cache[i];
+        return cache[i]=dfs(n,i+1)+dfs(n,i+2);
     }
 };
