@@ -1,17 +1,23 @@
-#include <vector>
-#include <algorithm>
-#include <climits>
+#include <bits/stdc++.h>
+using namespace std;
+
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        int buy1 = INT_MAX, buy2 = INT_MAX;
-        int prof1 = 0, prof2 = 0;
-        for (int price : prices) {
-            buy1 = min(buy1, price);
-            prof1 = max(prof1, price - buy1);
-            buy2 = min(buy2, price - prof1);
-            prof2 = max(prof2, price - buy2);
+        int n = prices.size();
+        vector<vector<int>> next(2, vector<int>(3, 0));
+        for (int index = n - 1; index >= 0; index--) {
+            vector<vector<int>> curr(2, vector<int>(3, 0));
+            for (int rem= 1;rem<= 2;rem++) {
+                int buy = -prices[index]+ next[0][rem];
+                int skip = next[1][rem];
+                curr[1][rem] = max(buy, skip);
+                int sell = prices[index]+ next[1][rem- 1];
+                int hold = next[0][rem];
+                curr[0][rem] = max(sell, hold);
+            }
+            next = curr;
         }
-        return prof2;
+        return next[1][2];
     }
 };
